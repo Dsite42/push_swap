@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   psw_lstadd_back.c                                  :+:      :+:    :+:   */
+/*   psw_lstlast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 22:58:36 by chris             #+#    #+#             */
-/*   Updated: 2023/02/09 14:25:32 by cgodecke         ###   ########.fr       */
+/*   Created: 2023/01/02 15:50:55 by chris             #+#    #+#             */
+/*   Updated: 2023/02/09 14:24:51 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// This function ft_lstadd_back adds the node ’new’ at the end of the list.
-// Return: None.
+// This function ft_lstlast returns the last node of the list.
+// Return: Last node of the list as t_list.
 
 #include "push_swap.h"
 
-void	psw_lstadd_back(t_psw_list **lst, t_psw_list *new)
+t_psw_list	*psw_lstlast(t_psw_list *lst)
 {
-	if (*lst == NULL && new != NULL)
-		*lst = new;
-	else
-		psw_lstlast(*lst)->next = new;
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next != NULL)
+	{
+		lst = lst->next;
+	}
+	return (lst);
 }
