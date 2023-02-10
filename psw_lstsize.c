@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   psw_lstadd_front.c                                 :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 22:58:36 by chris             #+#    #+#             */
-/*   Updated: 2023/02/10 17:55:18 by cgodecke         ###   ########.fr       */
+/*   Created: 2023/01/02 15:00:29 by chris             #+#    #+#             */
+/*   Updated: 2023/02/10 14:43:34 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// This function ft_lstadd_front adds the node ’new’ at the beginning of the 
-// list.
-// Return: None.
+// This function ft_lstsize Counts the number of nodes in a list.
+// Return: The length of the list as int.
 
 #include "push_swap.h"
 
-void	psw_lstadd_front(t_psw_list **lst, t_psw_list **new)
+int	psw_lstsize(t_psw_list *lst)
 {
-	(*new)->next = *lst;
-	*lst = *new;
+	int		i;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }

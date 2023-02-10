@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:32 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/10 15:06:11 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:52:34 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,6 @@ t_psw_list	*create_list(char **argv)
 	return (list_start);
 }
 
-void	pb(t_psw_list **a_list, t_psw_list **b_list)
-{
-	t_psw_list	*tmp;
-
-	tmp = (*a_list)->next;
-	psw_lstadd_front(b_list, a_list);
-	*a_list = tmp;
-}
 
 
 t_psw_list	*find_node_b(int content_a, t_psw_list *b_list)
@@ -157,6 +149,23 @@ t_psw_list	*cheapest_node(t_psw_list *a_list, t_psw_list *b_list)
 	return (cheapest);
 }
 
+
+void	run_rotate(t_psw_list **a_list, int amount_rotate, void (*f)(t_psw_list **))
+{
+	while (amount_rotate > 0)
+	{
+		f(a_list);
+		amount_rotate--;
+	}
+}
+
+void	rotate_all(t_psw_list **a_list, t_psw_list **b_list, t_psw_list *node_a_to_push)
+{
+		run_rotate(a_list, node_a_to_push->ra, &ra);
+		run_rotate(a_list, node_a_to_push->rra, &rra);
+
+}
+
 int main(int argc, char **argv)
 {
 	t_psw_list	*a_list;
@@ -168,11 +177,14 @@ int main(int argc, char **argv)
 //#zwei nach B schieben
 	pb(&a_list, &b_list);
 	pb(&a_list, &b_list);
+
 //#positionsinfo beider stacks aktuallisieren
 	update_lists(a_list, b_list);
 //Kosten berechnen
 	node_a_to_push = cheapest_node(a_list, b_list);
-
+//#Rotation und swap  mit der günstigsten Zahl durchführen
+//#befehl printen
+	rotate_all(&a_list, &b_list, node_a_to_push);
 
 //Print stacks:
 	printf("STACK A:\n");
@@ -192,7 +204,7 @@ int main(int argc, char **argv)
 		
 		printf("%i index:%i costs:%i ra:%i rra:%i rb:%i rrb:%i rr:%i rrr:%i\n", b_list->content, b_list->index, b_list->costs, b_list->ra, b_list->rra, b_list->rb, b_list->rrb, b_list->rr, b_list->rrr);
 	}
-	
+	printf("node_a_to_push_index:%i\n", node_a_to_push->index);
 
 
 	/*
@@ -203,15 +215,14 @@ int main(int argc, char **argv)
 		# Note in B finden über den A hinzugefügt werden muss
 	
 	Kosten berechnen
-	#A: berechnen ob ra oder rra kurzer ist.
-	#B: berechnen ob rb oder rrb kurzer ist.
-	# Kosten A & B addieren.
+		#A: berechnen ob ra oder rra kurzer ist.
+		#B: berechnen ob rb oder rrb kurzer ist.
+		# Kosten A & B addieren.
 	#berechnen, ob durch rr oder rrr kosten reduziert werden können:
 		#größerer index sind die max kosten. (rr+rX)
 		#größerer (list len - index) sind die max kosten (rrr+rrX).
 
-	# die günstigste Zahl aus A nehmen und eneut günstigste kombination berechnen 
-	#Rotation und swap durchführen
+	#Rotation und swap  mit der günstigsten Zahl durchführen
 	#befehl printen
 
 	# wieder starten bei positionsinfo aktuallisieren bis A nur noch drei werte hat

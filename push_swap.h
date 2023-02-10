@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:45:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/10 14:44:23 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:55:48 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ t_psw_list	*create_list(char **argv);
 int	psw_lstsize(t_psw_list *lst);
 void	psw_lstadd_back(t_psw_list **lst, t_psw_list *new);
 void	psw_lstadd_front(t_psw_list **lst, t_psw_list **new);
+
+
+void	ra(t_psw_list **a_list);
+void	pb(t_psw_list **a_list, t_psw_list **b_list);
+void	rra(t_psw_list **a_list);
 
 
 #endif

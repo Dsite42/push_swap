@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   psw_lstadd_front.c                                 :+:      :+:    :+:   */
+/*   pb.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 22:58:36 by chris             #+#    #+#             */
-/*   Updated: 2023/02/10 17:55:18 by cgodecke         ###   ########.fr       */
+/*   Created: 2023/02/10 17:19:39 by cgodecke          #+#    #+#             */
+/*   Updated: 2023/02/10 17:53:49 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// This function ft_lstadd_front adds the node ’new’ at the beginning of the 
-// list.
-// Return: None.
+#include "../push_swap.h"
 
-#include "push_swap.h"
-
-void	psw_lstadd_front(t_psw_list **lst, t_psw_list **new)
+void	pb(t_psw_list **a_list, t_psw_list **b_list)
 {
-	(*new)->next = *lst;
-	*lst = *new;
+	t_psw_list	*tmp;
+
+	tmp = (*a_list)->next;
+	psw_lstadd_front(b_list, a_list);
+	*a_list = tmp;
 }
