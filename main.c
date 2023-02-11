@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:32 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/11 17:37:05 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/12 00:07:11 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,35 @@ t_psw_list	*find_node_b(int content_a, t_psw_list *b_list)
 		return (max_max_node);
 	return (max_node);
 }
+
+t_psw_list	*find_node_a(int content_b, t_psw_list *a_list)
+{
+	int			min_content;
+	int			min_min_content;
+	t_psw_list	*min_node;
+	t_psw_list	*min_min_node;
+
+	min_content = INT_MAX;
+	min_min_content = INT_MAX;
+	while (a_list != NULL)
+	{
+		if (a_list->content < min_min_content)
+		{
+			min_min_content = a_list->content;
+			min_min_node = a_list;
+		}
+		if (a_list->content > content_b && a_list->content < min_content)
+		{
+			min_content = a_list->content;
+			min_node = a_list;
+		}
+		a_list = a_list->next;
+	}
+	if (min_content == INT_MAX)
+		return (min_min_node);
+	return (min_node);
+}
+
 
 void	clear_values(t_psw_list *lst)
 {
@@ -202,6 +231,84 @@ void	sort_three(t_psw_list **a_list)
 		sa(*a_list);
 }
 
+int	calc_single_index(t_psw_list *a_list, int to_find)
+{
+	int	i;
+
+	i = 1;
+	while (a_list->content != to_find)
+	{
+		i++;
+		a_list = a_list->next;
+	}
+	return (i);
+}
+
+void	swap_all_to_A(t_psw_list **a_list, t_psw_list **b_list)
+{
+	int			i;
+	t_psw_list	*insert_before;
+
+	while (*b_list != NULL)
+	{
+		//print_stacks(*a_list, *b_list);
+		i = 1;
+		insert_before = find_node_a((*b_list)->content, *a_list);
+		//printf("insert_before:%i firstA:%i firstB:%i\n", insert_before->content, (*a_list)->content, (*b_list)->content);
+//  		if ((*b_list)->content == 999)
+//  		{
+//  print_stacks(*a_list, *b_list);
+//  			return (0);
+// 		}
+		i = calc_single_index(*a_list, insert_before->content);
+		run_rotate(a_list, b_list, i - 1, &ra);
+		pa(a_list, b_list);
+	}
+
+}
+
+
+void	print_stacks(t_psw_list *a_list, t_psw_list *b_list)
+{
+	printf("STACK A:\n");
+	while(a_list != NULL)
+	{
+		//printf("%i index:%i costs:%i ra:%i rra:%i rb:%i rrb:%i rr:%i rrr:%i content_b:%i\n", a_list->content, a_list->index, a_list->costs, a_list->ra, a_list->rra, a_list->rb, a_list->rrb, a_list->rr, a_list->rrr, a_list->node_b->content);
+		printf("%i index:%i costs:%i ra:%i rra:%i rb:%i rrb:%i rr:%i rrr:%i\n", a_list->content, a_list->index, a_list->costs, a_list->ra, a_list->rra, a_list->rb, a_list->rrb, a_list->rr, a_list->rrr);
+		a_list = a_list->next;
+	}
+
+	printf("STACK B:\n");
+	while(b_list != NULL)
+	{
+		printf("%i index:%i costs:%i ra:%i rra:%i rb:%i rrb:%i rr:%i rrr:%i\n", b_list->content, b_list->index, b_list->costs, b_list->ra, b_list->rra, b_list->rb, b_list->rrb, b_list->rr, b_list->rrr);
+		b_list = b_list->next;
+	}
+	
+}
+
+void	rotate_to_min(t_psw_list **a_list)
+{
+	int			min_min_content;
+	t_psw_list	*min_min_node;
+	t_psw_list	*a_list_start;
+
+	a_list_start = *a_list;
+	min_min_content = INT_MAX;
+	while (*a_list != NULL)
+	{
+		if ((*a_list)->content < min_min_content)
+		{
+			min_min_content = (*a_list)->content;
+			min_min_node = *a_list;
+		}
+		*a_list = (*a_list)->next;
+	}
+	*a_list = a_list_start;
+	run_rotate(a_list, NULL, calc_single_index(*a_list, min_min_content) - 1, &ra);
+}
+
+
 int main(int argc, char **argv)
 {
 	t_psw_list	*a_list;
@@ -226,7 +333,7 @@ int main(int argc, char **argv)
 		rotate_all(&a_list, &b_list, node_a_to_push);
 		pb(&a_list, &b_list);
 	//# wieder starten bei positionsinfo aktuallisieren bis A nur noch drei werte hat
-		printf("push:%i\n", b_list->content);
+		//printf("push:%i\n", b_list->content);
 		//update_lists(a_list, b_list);
 		////node_a_to_push = cheapest_node(a_list, b_list);
 		//if (b_list->content == 8)
@@ -237,26 +344,16 @@ int main(int argc, char **argv)
 	update_lists(a_list, b_list);
 	sort_three(&a_list);
 
+//#schauen welcher wert in A der nächste kleinere unter dem ersten B wert ist
+//# A rotieren
+//#swab B zu A
+	swap_all_to_A(&a_list, &b_list);
+
+//#A solange rotieren, bis die kleinste Zahl oben ist.
+rotate_to_min(&a_list);
+
 //Print stacks:
-	printf("STACK A:\n");
-	printf("%i index:%i costs:%i ra:%i rra:%i rb:%i rrb:%i rr:%i rrr:%i content_b:%i\n", a_list->content, a_list->index, a_list->costs, a_list->ra, a_list->rra, a_list->rb, a_list->rrb, a_list->rr, a_list->rrr, a_list->node_b->content);
-	while(a_list->next != NULL)
-	{
-		a_list = a_list->next;
-		
-		printf("%i index:%i costs:%i ra:%i rra:%i rb:%i rrb:%i rr:%i rrr:%i content_b:%i\n", a_list->content, a_list->index, a_list->costs, a_list->ra, a_list->rra, a_list->rb, a_list->rrb, a_list->rr, a_list->rrr, a_list->node_b->content);
-	}
-
-	printf("STACK B:\n");
-	printf("%i index:%i costs:%i ra:%i rra:%i rb:%i rrb:%i rr:%i rrr:%i\n", b_list->content, b_list->index, b_list->costs, b_list->ra, b_list->rra, b_list->rb, b_list->rrb, b_list->rr, b_list->rrr);
-	while(b_list->next != NULL)
-	{
-		b_list = b_list->next;
-		
-		printf("%i index:%i costs:%i ra:%i rra:%i rb:%i rrb:%i rr:%i rrr:%i\n", b_list->content, b_list->index, b_list->costs, b_list->ra, b_list->rra, b_list->rb, b_list->rrb, b_list->rr, b_list->rrr);
-	}
-	printf("node_a_to_push_index:%i\n", node_a_to_push->index);
-
+//print_stacks(a_list, b_list);
 
 	/*
 		#linked list erstellen
@@ -280,8 +377,11 @@ int main(int argc, char **argv)
 
 		# drei werte in A sortieren
 
-	#schauen welcher wert der nächste kleinere unter dem ersten B wert ist
-	# A rotieren
-	#swab B zu A
+		#schauen welcher wert in A der nächste kleinere unter dem ersten B wert ist
+		# A rotieren
+		#swab B zu A
+	#A solange rotieren, bis die kleinste Zahl oben ist.
 	*/
+
+
 }

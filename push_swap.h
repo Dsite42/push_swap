@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:45:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/11 17:19:56 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/11 23:21:34 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 //# include <strings.h>
 # include <stdlib.h>
 # include "libft/libft.h"
+# include <limits.h>
 //# include <stddef.h>
-//# include <unistd.h>
+# include <stdio.h>
 
 typedef struct s_psw_list
 {
@@ -46,6 +47,7 @@ void	psw_lstadd_back(t_psw_list **lst, t_psw_list *new);
 void	psw_lstadd_front(t_psw_list **lst, t_psw_list *new);
 
 void	sa(t_psw_list *a_list);
+void	pa(t_psw_list **a_list, t_psw_list **b_list);
 void	pb(t_psw_list **a_list, t_psw_list **b_list);
 void	ra(t_psw_list **a_list, t_psw_list **b_list);
 void	rra(t_psw_list **a_list, t_psw_list **b_list);
@@ -53,4 +55,9 @@ void	rb(t_psw_list **a_list, t_psw_list **b_list);
 void	rrb(t_psw_list **a_list, t_psw_list **b_list);
 void	rr(t_psw_list **a_list, t_psw_list **b_list);
 void	rrr(t_psw_list **a_list, t_psw_list **b_list);
+
+
+
+
+void	print_stacks(t_psw_list *a_list, t_psw_list *b_list);
 #endif
