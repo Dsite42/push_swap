@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:45:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/10 17:55:48 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:19:56 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ t_psw_list	*psw_lstlast(t_psw_list *lst);
 t_psw_list	*create_list(char **argv);
 int	psw_lstsize(t_psw_list *lst);
 void	psw_lstadd_back(t_psw_list **lst, t_psw_list *new);
-void	psw_lstadd_front(t_psw_list **lst, t_psw_list **new);
+void	psw_lstadd_front(t_psw_list **lst, t_psw_list *new);
 
-
-void	ra(t_psw_list **a_list);
+void	sa(t_psw_list *a_list);
 void	pb(t_psw_list **a_list, t_psw_list **b_list);
-void	rra(t_psw_list **a_list);
-
-
+void	ra(t_psw_list **a_list, t_psw_list **b_list);
+void	rra(t_psw_list **a_list, t_psw_list **b_list);
+void	rb(t_psw_list **a_list, t_psw_list **b_list);
+void	rrb(t_psw_list **a_list, t_psw_list **b_list);
+void	rr(t_psw_list **a_list, t_psw_list **b_list);
+void	rrr(t_psw_list **a_list, t_psw_list **b_list);
 #endif
