@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:32 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/12 15:35:54 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/12 20:02:23 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,8 @@ t_psw_list	*find_node_a(int content_b, t_psw_list *a_list)
 }
 
 
-void	clear_values(t_psw_list *lst)
+void	clear_node_cost_values(t_psw_list *lst)
 {
-	while (lst != NULL)
-	{
 		lst->costs = 0;
 		lst->ra = 0;
 		lst->rra = 0;
@@ -98,6 +96,26 @@ void	clear_values(t_psw_list *lst)
 		lst->rrb = 0;
 		lst->rr = 0;
 		lst->rrr = 0;
+}
+
+void	copy_node_cost_values(t_psw_list *lst, t_psw_list *new_values)
+{
+		lst->costs = new_values->costs;
+		lst->ra = new_values->ra;
+		lst->rra = new_values->rra;
+		lst->rb = new_values->rb;
+		lst->rrb = new_values->rrb;
+		lst->rr = new_values->rr;
+		lst->rrr = new_values->rrr;
+}
+
+
+
+void	clear_stack_values(t_psw_list *lst)
+{
+	while (lst != NULL)
+	{
+		clear_node_cost_values(lst);
 		lst->node_b = NULL;
 		lst = lst->next;
 	}
@@ -125,6 +143,51 @@ void	update_lists(t_psw_list *a_list, t_psw_list *b_list)
 	}
 }
 
+void	rr_cost_optimization(t_psw_list *a_list, t_psw_list *b_list)
+{
+	t_psw_list	*new_costs;
+
+	new_costs = psw_lstnew(a_list->content);
+	clear_node_cost_values(new_costs);
+	if (a_list->index - 1 > a_list->node_b->index - 1)
+	{
+		new_costs->costs = a_list->index - 1;
+		new_costs->rr = a_list->node_b->index - 1;
+		new_costs->ra = new_costs->costs - new_costs->rr;
+	}
+	else
+	{
+		new_costs->costs = a_list->node_b->index - 1;
+		new_costs->rr = a_list->index - 1;
+		new_costs->rb = new_costs->costs - new_costs->rr;
+	}
+	if (new_costs->costs < a_list->costs)
+		copy_node_cost_values(a_list, new_costs);
+	free(new_costs);
+}
+
+void	rrr_cost_optimization(t_psw_list *a_list, t_psw_list *b_list, t_psw_list *a_list_start)
+{
+	t_psw_list	*new_costs;
+
+	new_costs = psw_lstnew(a_list->content);
+	clear_node_cost_values(new_costs);
+	if ((psw_lstsize(a_list_start) - a_list->index + 1) > (psw_lstsize(b_list) - a_list->node_b->index + 1))
+	{
+		new_costs->costs = (psw_lstsize(a_list_start) - a_list->index + 1);
+		new_costs->rrr = (psw_lstsize(b_list) - a_list->node_b->index + 1);
+		new_costs->rra = new_costs->costs - new_costs->rrr;
+	}
+	else
+	{
+		new_costs->costs = (psw_lstsize(b_list) - a_list->node_b->index + 1);
+		new_costs->rrr = (psw_lstsize(a_list_start) - a_list->index + 1);
+		new_costs->rrb = new_costs->costs - new_costs->rrr;
+	}
+	if (new_costs->costs < a_list->costs)
+		copy_node_cost_values(a_list, new_costs);
+	free(new_costs);
+}
 
 
 void	rx_rrx_costs(t_psw_list *a_list, t_psw_list *b_list)
@@ -151,6 +214,8 @@ void	rx_rrx_costs(t_psw_list *a_list, t_psw_list *b_list)
 			a_list->rrb = psw_lstsize(b_list) - a_list->node_b->index + 1;
 		}
 		a_list->costs = a_list->ra + a_list->rra + a_list->rb + a_list->rrb + a_list->rr + a_list->rrr;
+		rr_cost_optimization(a_list, b_list);
+		rrr_cost_optimization(a_list, b_list, a_list_start);
 		a_list = a_list->next;
 	}
 }
@@ -348,8 +413,8 @@ int main(int argc, char **argv)
 		//	break;
 
 		pb(&a_list, &b_list);
-		clear_values(a_list);
-		clear_values(b_list);
+		clear_stack_values(a_list);
+		clear_stack_values(b_list);
 
 	//# wieder starten bei positionsinfo aktuallisieren bis A nur noch drei werte hat
 		//printf("push:%i\n", b_list->content);
@@ -378,7 +443,7 @@ rotate_to_min(&a_list, &b_list);
 //print_stacks(a_list, b_list);
 
 //71 22 32 83 16 92 76 9 15 20 40 66 97 28 33 62 50 12 8 96 77 52 58 34 27 7 73 63 37 23 68 29 39 49 30 43 88 10 21 87 56 64 25 54 85 38 57 24 74 59 91 11 93 35 4 86 3 81 47 78 98 55 72 60 42 44 89 46 13 41 26 61 65 6 17 100 70 31 99 90 19 69 84 18 36 94 51 14 5 67 95 2 79 82 80 53 45 75 1 48
-//Count 889. Nach opti swaptoA: 667. Nach opti rotate_to_min: 613
+//Count 889. Nach opti swaptoA: 667. Nach opti rotate_to_min: 613. Nach opti rr: 573. Nach opti rrr: 513
 	/*
 		#linked list erstellen
 		#zwei nach B schieben
