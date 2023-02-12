@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:32 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/12 11:37:00 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/12 15:35:54 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ void	update_lists(t_psw_list *a_list, t_psw_list *b_list)
 	int		i;
 
 	i = 1;
-	clear_values(a_list);
-	clear_values(b_list);
 
 	while (a_list != NULL)
 	{
@@ -248,13 +246,12 @@ int	calc_single_index(t_psw_list *a_list, int to_find)
 
 void	swap_all_to_A(t_psw_list **a_list, t_psw_list **b_list)
 {
-	int			i;
+	int			rotate_amount;
 	t_psw_list	*insert_before;
 
 	while (*b_list != NULL)
 	{
 		//print_stacks(*a_list, *b_list);
-		i = 1;
 		insert_before = find_node_a((*b_list)->content, *a_list);
 		//printf("insert_before:%i firstA:%i firstB:%i\n", insert_before->content, (*a_list)->content, (*b_list)->content);
 //  		if ((*b_list)->content == 999)
@@ -262,8 +259,14 @@ void	swap_all_to_A(t_psw_list **a_list, t_psw_list **b_list)
 //  print_stacks(*a_list, *b_list);
 //  			return (0);
 // 		}
-		i = calc_single_index(*a_list, insert_before->content);
-		run_rotate(a_list, b_list, i - 1, &ra);
+		rotate_amount = calc_single_index(*a_list, insert_before->content) - 1;
+		if (rotate_amount <= (psw_lstsize(*a_list) - rotate_amount))
+			run_rotate(a_list, b_list, rotate_amount, &ra);
+		else
+		{
+			rotate_amount = psw_lstsize(*a_list) - rotate_amount;
+			run_rotate(a_list, b_list, rotate_amount, &rra);
+		}
 		pa(a_list, b_list);
 	}
 
@@ -292,6 +295,7 @@ void	print_stacks(t_psw_list *a_list, t_psw_list *b_list)
 void	rotate_to_min(t_psw_list **a_list, t_psw_list **b_list)
 {
 	int			min_min_content;
+	int			rotate_amount;
 	t_psw_list	*min_min_node;
 	t_psw_list	*a_list_start;
 
@@ -307,7 +311,14 @@ void	rotate_to_min(t_psw_list **a_list, t_psw_list **b_list)
 		*a_list = (*a_list)->next;
 	}
 	*a_list = a_list_start;
-	run_rotate(a_list, b_list, calc_single_index(*a_list, min_min_content) - 1, &ra);
+	rotate_amount = calc_single_index(*a_list, min_min_node->content) - 1;
+	if (rotate_amount <= (psw_lstsize(*a_list) - rotate_amount))
+		run_rotate(a_list, b_list, rotate_amount, &ra);
+	else
+	{
+		rotate_amount = psw_lstsize(*a_list) - rotate_amount;
+		run_rotate(a_list, b_list, rotate_amount, &rra);
+	}
 }
 
 
@@ -337,12 +348,16 @@ int main(int argc, char **argv)
 		//	break;
 
 		pb(&a_list, &b_list);
+		clear_values(a_list);
+		clear_values(b_list);
+
 	//# wieder starten bei positionsinfo aktuallisieren bis A nur noch drei werte hat
 		//printf("push:%i\n", b_list->content);
 		//update_lists(a_list, b_list);
 		////node_a_to_push = cheapest_node(a_list, b_list);
 //update_lists(a_list, b_list);
 //print_stacks(a_list, b_list);
+
 	}
 
 //# positionsinfo updaten und drei werte in A sortieren
@@ -362,7 +377,8 @@ rotate_to_min(&a_list, &b_list);
 //run_rotate(&a_list, &b_list, 4, &rrb);
 //print_stacks(a_list, b_list);
 
-//./a.out 9 4 3 5 7 6 10 8 2 1
+//71 22 32 83 16 92 76 9 15 20 40 66 97 28 33 62 50 12 8 96 77 52 58 34 27 7 73 63 37 23 68 29 39 49 30 43 88 10 21 87 56 64 25 54 85 38 57 24 74 59 91 11 93 35 4 86 3 81 47 78 98 55 72 60 42 44 89 46 13 41 26 61 65 6 17 100 70 31 99 90 19 69 84 18 36 94 51 14 5 67 95 2 79 82 80 53 45 75 1 48
+//Count 889. Nach opti swaptoA: 667. Nach opti rotate_to_min: 613
 	/*
 		#linked list erstellen
 		#zwei nach B schieben
