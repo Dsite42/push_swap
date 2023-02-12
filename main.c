@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:32 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/12 00:07:11 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/12 11:37:00 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,8 +187,10 @@ void	run_rotate(t_psw_list **a_list, t_psw_list **b_list, int amount_rotate, voi
 {
 	while (amount_rotate > 0)
 	{
+		update_lists(*a_list, *b_list);
 		f(a_list, b_list);
 		amount_rotate--;
+		
 	}
 }
 
@@ -287,7 +289,7 @@ void	print_stacks(t_psw_list *a_list, t_psw_list *b_list)
 	
 }
 
-void	rotate_to_min(t_psw_list **a_list)
+void	rotate_to_min(t_psw_list **a_list, t_psw_list **b_list)
 {
 	int			min_min_content;
 	t_psw_list	*min_min_node;
@@ -305,7 +307,7 @@ void	rotate_to_min(t_psw_list **a_list)
 		*a_list = (*a_list)->next;
 	}
 	*a_list = a_list_start;
-	run_rotate(a_list, NULL, calc_single_index(*a_list, min_min_content) - 1, &ra);
+	run_rotate(a_list, b_list, calc_single_index(*a_list, min_min_content) - 1, &ra);
 }
 
 
@@ -331,13 +333,16 @@ int main(int argc, char **argv)
 	//#Rotation und swap  mit der günstigsten Zahl durchführen
 	//#befehl printen
 		rotate_all(&a_list, &b_list, node_a_to_push);
+		//if (a_list->content == 6)
+		//	break;
+
 		pb(&a_list, &b_list);
 	//# wieder starten bei positionsinfo aktuallisieren bis A nur noch drei werte hat
 		//printf("push:%i\n", b_list->content);
 		//update_lists(a_list, b_list);
 		////node_a_to_push = cheapest_node(a_list, b_list);
-		//if (b_list->content == 8)
-		//	break;
+//update_lists(a_list, b_list);
+//print_stacks(a_list, b_list);
 	}
 
 //# positionsinfo updaten und drei werte in A sortieren
@@ -350,11 +355,14 @@ int main(int argc, char **argv)
 	swap_all_to_A(&a_list, &b_list);
 
 //#A solange rotieren, bis die kleinste Zahl oben ist.
-rotate_to_min(&a_list);
+rotate_to_min(&a_list, &b_list);
 
 //Print stacks:
 //print_stacks(a_list, b_list);
+//run_rotate(&a_list, &b_list, 4, &rrb);
+//print_stacks(a_list, b_list);
 
+//./a.out 9 4 3 5 7 6 10 8 2 1
 	/*
 		#linked list erstellen
 		#zwei nach B schieben
