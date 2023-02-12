@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ra.c                                               :+:      :+:    :+:   */
+/*   create_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 17:15:48 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/12 22:58:33 by chris            ###   ########.fr       */
+/*   Created: 2023/02/12 22:18:57 by chris             #+#    #+#             */
+/*   Updated: 2023/02/12 22:19:15 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	ra(t_psw_list **a_list, t_psw_list **b_list)
+t_psw_list	*create_lst(char **argv)
 {
-	t_psw_list	*tmp;
-	
-	tmp = (*a_list)->next;
-	psw_lstadd_back(a_list, *a_list);
-	*a_list = tmp;
-	write(1, "ra\n", 3);
+	t_psw_list	*list_start;
+
+	list_start = psw_lstnew(ft_atoi(*argv));
+	argv++;
+	while (*argv != NULL)
+	{
+		psw_lstadd_back(&list_start, psw_lstnew(ft_atoi(*argv)));
+		argv++;
+	}
+	return (list_start);
 }

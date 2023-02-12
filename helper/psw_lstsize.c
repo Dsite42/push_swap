@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ra.c                                               :+:      :+:    :+:   */
+/*   psw_lstsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 17:15:48 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/12 22:58:33 by chris            ###   ########.fr       */
+/*   Created: 2023/01/02 15:00:29 by chris             #+#    #+#             */
+/*   Updated: 2023/02/12 22:23:22 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// This function ft_lstsize Counts the number of nodes in a list.
+// Return: The length of the list as int.
+
 #include "../push_swap.h"
 
-void	ra(t_psw_list **a_list, t_psw_list **b_list)
+int	psw_lstsize(t_psw_list *lst)
 {
-	t_psw_list	*tmp;
-	
-	tmp = (*a_list)->next;
-	psw_lstadd_back(a_list, *a_list);
-	*a_list = tmp;
-	write(1, "ra\n", 3);
+	int		i;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }

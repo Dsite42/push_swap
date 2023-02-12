@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ra.c                                               :+:      :+:    :+:   */
+/*   clear_node_cost_values.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 17:15:48 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/12 22:58:33 by chris            ###   ########.fr       */
+/*   Created: 2023/02/12 22:09:42 by chris             #+#    #+#             */
+/*   Updated: 2023/02/12 22:10:02 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	ra(t_psw_list **a_list, t_psw_list **b_list)
+void	clear_node_cost_values(t_psw_list *lst)
 {
-	t_psw_list	*tmp;
-	
-	tmp = (*a_list)->next;
-	psw_lstadd_back(a_list, *a_list);
-	*a_list = tmp;
-	write(1, "ra\n", 3);
+		lst->costs = 0;
+		lst->ra = 0;
+		lst->rra = 0;
+		lst->rb = 0;
+		lst->rrb = 0;
+		lst->rr = 0;
+		lst->rrr = 0;
 }

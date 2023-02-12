@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ra.c                                               :+:      :+:    :+:   */
+/*   copy_node_cost_values.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 17:15:48 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/12 22:58:33 by chris            ###   ########.fr       */
+/*   Created: 2023/02/12 22:10:22 by chris             #+#    #+#             */
+/*   Updated: 2023/02/12 22:10:46 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	ra(t_psw_list **a_list, t_psw_list **b_list)
+void	copy_node_cost_values(t_psw_list *lst, t_psw_list *new_values)
 {
-	t_psw_list	*tmp;
-	
-	tmp = (*a_list)->next;
-	psw_lstadd_back(a_list, *a_list);
-	*a_list = tmp;
-	write(1, "ra\n", 3);
+		lst->costs = new_values->costs;
+		lst->ra = new_values->ra;
+		lst->rra = new_values->rra;
+		lst->rb = new_values->rb;
+		lst->rrb = new_values->rrb;
+		lst->rr = new_values->rr;
+		lst->rrr = new_values->rrr;
 }

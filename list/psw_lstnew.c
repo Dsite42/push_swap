@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ra.c                                               :+:      :+:    :+:   */
+/*   psw_lstnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 17:15:48 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/12 22:58:33 by chris            ###   ########.fr       */
+/*   Created: 2022/12/23 22:58:36 by chris             #+#    #+#             */
+/*   Updated: 2023/02/12 22:23:15 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// This function ft_lstnew creates a new node. The member variable ’content’
+// is // initialized with the value of the parameter ’content’.
+// The variable ’next’ is initialized to NULL.
+// Return: The new node as t_list.
+
 #include "../push_swap.h"
 
-void	ra(t_psw_list **a_list, t_psw_list **b_list)
+t_psw_list	*psw_lstnew(int content)
 {
 	t_psw_list	*tmp;
-	
-	tmp = (*a_list)->next;
-	psw_lstadd_back(a_list, *a_list);
-	*a_list = tmp;
-	write(1, "ra\n", 3);
+
+	tmp = (t_psw_list *) malloc(sizeof(t_psw_list));
+	if (tmp == NULL)
+		return (NULL);
+	tmp->content = content;
+	tmp->next = NULL;
+	return (tmp);
 }

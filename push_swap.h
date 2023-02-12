@@ -6,26 +6,22 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:45:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/11 23:21:34 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/12 22:48:21 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-//# include <strings.h>
-# include <stdlib.h>
 # include "libft/libft.h"
 # include <limits.h>
-//# include <stddef.h>
-# include <stdio.h>
 
 typedef struct s_psw_list
 {
 	int					content;
 	int					index;
 
-	int 				costs;
+	int					costs;
 	int					ra;
 	int					rra;
 	int					rb;
@@ -37,27 +33,44 @@ typedef struct s_psw_list
 	struct s_psw_list	*next;
 }						t_psw_list;
 
+//Operations functions:
+void		sa(t_psw_list *a_list);
+void		pa(t_psw_list **a_list, t_psw_list **b_list);
+void		pb(t_psw_list **a_list, t_psw_list **b_list);
+void		ra(t_psw_list **a_list, t_psw_list **b_list);
+void		rra(t_psw_list **a_list, t_psw_list **b_list);
+void		rb(t_psw_list **a_list, t_psw_list **b_list);
+void		rrb(t_psw_list **a_list, t_psw_list **b_list);
+void		rr(t_psw_list **a_list, t_psw_list **b_list);
+void		rrr(t_psw_list **a_list, t_psw_list **b_list);
+void		run_rotate(t_psw_list **a_list, t_psw_list **b_list,
+				int amount_rotate, void (*f)(t_psw_list **, t_psw_list **));
+void		rotate_all(t_psw_list **a_list, t_psw_list **b_list,
+				t_psw_list *node_a_to_push);
+void		sort_three(t_psw_list **a_list);
+void		swap_all_to_a(t_psw_list **a_list, t_psw_list **b_list);
+void		rotate_to_min(t_psw_list **a_list, t_psw_list **b_list);
+void		psw_lstadd_back(t_psw_list **lst, t_psw_list *new);
+void		psw_lstadd_front(t_psw_list **lst, t_psw_list *new);
 
+//Helper functions:
+int			calc_single_index(t_psw_list *a_list, int to_find);
+void		clear_node_cost_values(t_psw_list *lst);
+void		copy_node_cost_values(t_psw_list *lst, t_psw_list *new_values);
+void		clear_stack_values(t_psw_list *lst);
+void		rr_cost_optimization(t_psw_list *a_list, t_psw_list *b_list);
+void		rrr_cost_optimization(t_psw_list *a_list, t_psw_list *b_list,
+				t_psw_list *a_list_start);
+void		rx_rrx_costs(t_psw_list *a_list, t_psw_list *b_list);
+void		update_lists(t_psw_list *a_list, t_psw_list *b_list);
 
+//List functions:
+t_psw_list	*create_lst(char **argv);
 t_psw_list	*psw_lstnew(int content);
 t_psw_list	*psw_lstlast(t_psw_list *lst);
 t_psw_list	*create_list(char **argv);
-int	psw_lstsize(t_psw_list *lst);
-void	psw_lstadd_back(t_psw_list **lst, t_psw_list *new);
-void	psw_lstadd_front(t_psw_list **lst, t_psw_list *new);
-
-void	sa(t_psw_list *a_list);
-void	pa(t_psw_list **a_list, t_psw_list **b_list);
-void	pb(t_psw_list **a_list, t_psw_list **b_list);
-void	ra(t_psw_list **a_list, t_psw_list **b_list);
-void	rra(t_psw_list **a_list, t_psw_list **b_list);
-void	rb(t_psw_list **a_list, t_psw_list **b_list);
-void	rrb(t_psw_list **a_list, t_psw_list **b_list);
-void	rr(t_psw_list **a_list, t_psw_list **b_list);
-void	rrr(t_psw_list **a_list, t_psw_list **b_list);
-
-
-
-
-void	print_stacks(t_psw_list *a_list, t_psw_list *b_list);
+int			psw_lstsize(t_psw_list *lst);
+t_psw_list	*cheapest_node(t_psw_list *a_list, t_psw_list *b_list);
+t_psw_list	*find_node_a(int content_b, t_psw_list *a_list);
+t_psw_list	*find_node_b(int content_a, t_psw_list *b_list);
 #endif

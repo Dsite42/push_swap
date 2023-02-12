@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ra.c                                               :+:      :+:    :+:   */
+/*   cheapest_node.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 17:15:48 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/12 22:58:33 by chris            ###   ########.fr       */
+/*   Created: 2023/02/12 22:15:25 by chris             #+#    #+#             */
+/*   Updated: 2023/02/12 22:15:43 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	ra(t_psw_list **a_list, t_psw_list **b_list)
+t_psw_list	*cheapest_node(t_psw_list *a_list, t_psw_list *b_list)
 {
-	t_psw_list	*tmp;
-	
-	tmp = (*a_list)->next;
-	psw_lstadd_back(a_list, *a_list);
-	*a_list = tmp;
-	write(1, "ra\n", 3);
+	t_psw_list	*cheapest;
+	int			min_costs;
+
+	rx_rrx_costs(a_list, b_list);
+	min_costs = a_list->costs;
+	cheapest = a_list;
+	while (a_list != NULL)
+	{
+		if (a_list->costs < min_costs)
+		{
+			min_costs = a_list->costs;
+			cheapest = a_list;
+		}
+		a_list = a_list->next;
+	}
+	return (cheapest);
 }
