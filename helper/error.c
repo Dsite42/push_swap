@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/02 15:00:29 by chris             #+#    #+#             */
-/*   Updated: 2023/02/10 14:43:34 by cgodecke         ###   ########.fr       */
+/*   Created: 2023/02/13 11:35:11 by chris             #+#    #+#             */
+/*   Updated: 2023/02/13 11:35:26 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// This function ft_lstsize Counts the number of nodes in a list.
-// Return: The length of the list as int.
+#include "../push_swap.h"
 
-#include "push_swap.h"
-
-int	psw_lstsize(t_psw_list *lst)
+void	error(t_psw_list *a_list)
 {
-	int		i;
-
-	i = 0;
-	while (lst != NULL)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
+	if (a_list != NULL)
+		psw_lstclear(&a_list);
+	write(1, "Error\n", 6);
+	exit(0);
 }

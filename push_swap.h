@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:45:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/12 22:48:21 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/13 15:11:24 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		rrr_cost_optimization(t_psw_list *a_list, t_psw_list *b_list,
 				t_psw_list *a_list_start);
 void		rx_rrx_costs(t_psw_list *a_list, t_psw_list *b_list);
 void		update_lists(t_psw_list *a_list, t_psw_list *b_list);
+void		error(t_psw_list *a_list);
 
 //List functions:
 t_psw_list	*create_lst(char **argv);
@@ -73,4 +74,12 @@ int			psw_lstsize(t_psw_list *lst);
 t_psw_list	*cheapest_node(t_psw_list *a_list, t_psw_list *b_list);
 t_psw_list	*find_node_a(int content_b, t_psw_list *a_list);
 t_psw_list	*find_node_b(int content_a, t_psw_list *b_list);
+void		psw_lstclear(t_psw_list **lst);
+void		psw_lstdelone(t_psw_list *lst);
+
+
+
+
+void	print_stacks(t_psw_list *a_list, t_psw_list *b_list);
+
 #endif
