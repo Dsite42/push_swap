@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:45:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/13 15:11:24 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:32:00 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft/libft.h"
 # include <limits.h>
-
+#include <stdio.h>
 typedef struct s_psw_list
 {
 	int					content;
@@ -64,12 +64,16 @@ void		rrr_cost_optimization(t_psw_list *a_list, t_psw_list *b_list,
 void		rx_rrx_costs(t_psw_list *a_list, t_psw_list *b_list);
 void		update_lists(t_psw_list *a_list, t_psw_list *b_list);
 void		error(t_psw_list *a_list);
+int			is_duplicate(t_psw_list *a_list, int nbr_to_check);
+void		seed_to_next_nbr(char **str);
+int			is_sorted(t_psw_list *lst);
 
 //List functions:
-t_psw_list	*create_lst(char **argv);
+t_psw_list	*create_lst(char **argv, int argc);
 t_psw_list	*psw_lstnew(int content);
 t_psw_list	*psw_lstlast(t_psw_list *lst);
-t_psw_list	*create_list(char **argv);
+t_psw_list	*create_lst_from_args(char **argv, int argc);
+t_psw_list	*create_lst_from_str(char *str, int argc);
 int			psw_lstsize(t_psw_list *lst);
 t_psw_list	*cheapest_node(t_psw_list *a_list, t_psw_list *b_list);
 t_psw_list	*find_node_a(int content_b, t_psw_list *a_list);

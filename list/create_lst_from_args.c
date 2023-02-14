@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_lst.c                                       :+:      :+:    :+:   */
+/*   create_lst_from_args.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:18:57 by chris             #+#    #+#             */
-/*   Updated: 2023/02/13 15:17:01 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:52:33 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,6 @@ int	is_integer_range(char *str)
 	return (1);
 }
 
-int	is_duplicate(t_psw_list *a_list, int nbr_to_check)
-{
-	while (a_list != NULL)
-	{
-		if (a_list->content == nbr_to_check)
-			return (1);
-		a_list = a_list->next;
-	}
-	return (0);
-}
-
 int	is_valid_input_argument(t_psw_list *a_list, char *argv)
 {
 	if (is_valid_digits(argv) == 0)
@@ -61,21 +50,24 @@ int	is_valid_input_argument(t_psw_list *a_list, char *argv)
 	return (1);
 }
 
-t_psw_list	*create_lst(char **argv)
+t_psw_list	*create_lst_from_args(char **argv, int argc)
 {
 	t_psw_list	*list_start;
+	int			i;
 
-	while (*argv != NULL)
+	i = 0;
+	list_start = NULL;
+	while (i < argc - 1)
 	{
 		if (list_start == NULL)
 		{
-			list_start = psw_lstnew(ft_atoi(*argv));
-			argv++;
+			list_start = psw_lstnew(ft_atoi(argv[i]));
+			i++;
 		}
-		if (is_valid_input_argument(list_start, *argv) == 0)
+		if (is_valid_input_argument(list_start, argv[i]) == 0)
 			error(list_start);
-		psw_lstadd_back(&list_start, psw_lstnew(ft_atoi(*argv)));
-		argv++;
+		psw_lstadd_back(&list_start, psw_lstnew(ft_atoi(argv[i])));
+		i++;
 	}
 	return (list_start);
 }

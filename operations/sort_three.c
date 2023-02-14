@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_three.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 21:19:21 by chris             #+#    #+#             */
-/*   Updated: 2023/02/12 21:19:49 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:26:07 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	sort_three(t_psw_list **a_list)
 	t_psw_list	*max_max_node;
 	t_psw_list	*a_list_start;
 
+	max_max_content = INT_MIN;
 	a_list_start = *a_list;
 	while (*a_list != NULL)
 	{
