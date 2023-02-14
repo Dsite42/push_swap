@@ -6,15 +6,12 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:32 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/14 19:04:37 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:38:16 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
-
-
-#include <stdlib.h>
 
 /*
 void	print_stacks(t_psw_list *a_list, t_psw_list *b_list)
@@ -37,7 +34,7 @@ void	print_stacks(t_psw_list *a_list, t_psw_list *b_list)
 		b_list = b_list->next;
 	}
 }
-*/
+
 
 void	print_stack(t_psw_list *a_list)
 {
@@ -48,6 +45,29 @@ void	print_stack(t_psw_list *a_list)
 	}
 
 }
+*/
+
+void	initialize_input(t_psw_list **a_list, int argc, char **argv)
+{
+	if (argc < 2)
+		exit(0);
+	if (argc == 2)
+		*a_list = create_lst_from_str(*(argv + 1), argc);
+	else
+		*a_list = create_lst_from_args(argv + 1, argc);
+}
+
+void	handle_just_three(t_psw_list *a_list, t_psw_list *b_list)
+{
+	if (psw_lstsize(a_list) <= 3)
+	{
+		update_lists(a_list, b_list);
+		if (is_sorted(a_list) == 0)
+			sort_three(&a_list);
+		psw_lstclear(&a_list);
+		exit(0);
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -55,21 +75,8 @@ int	main(int argc, char **argv)
 	t_psw_list	*b_list;
 	t_psw_list	*node_a_to_push;
 
-
-	if (argc < 2)
-		return (0);
-	if (argc == 2)
-		a_list = create_lst_from_str(*(argv + 1), argc);
-	else
-		a_list = create_lst_from_args(argv + 1, argc);
-	if (psw_lstsize(a_list) <= 3)
-	{
-		update_lists(a_list, b_list);
-		if (is_sorted(a_list) == 0)
-			sort_three(&a_list);
-		print_stacks(a_list, b_list);
-		exit(0);
-	}
+	initialize_input(&a_list, argc, argv);
+	handle_just_three(a_list, b_list);
 	pb(&a_list, &b_list);
 	pb(&a_list, &b_list);
 	while (psw_lstsize(a_list) > 3)
@@ -84,11 +91,8 @@ int	main(int argc, char **argv)
 	update_lists(a_list, b_list);
 	if (is_sorted(a_list) == 0)
 		sort_three(&a_list);
-
 	swap_all_to_a(&a_list, &b_list);
 	rotate_to_min(&a_list, &b_list);
-
-print_stack(a_list);
 	psw_lstclear(&a_list);
 	psw_lstclear(&b_list);
 }

@@ -6,31 +6,11 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:18:57 by chris             #+#    #+#             */
-/*   Updated: 2023/02/14 18:06:57 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:40:32 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-//static int	is_valid_digits(char *str)
-//{
-//	int	i;
-//
-//	i = 0;
-//	while (str[i] != '\0' && (str[i] != ' ' || (str[i] == ' ') && i == 0))
-//	{
-//		if ((str[i] < '0' || str[i] > '9') && str[i] != ' ')
-//		{
-//			if (i != 0 || (i == 0 && str[i] != '-')
-//				|| (i == 0 && str[i] == '-' && str[i + 1] == '\0'))
-//				return (0);
-//		}
-//		if (str[i] == ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
-//			return (0);
-//		i++;
-//	}
-//	return (1);
-//}
 
 static int	is_valid_digits(char *str)
 {
@@ -71,7 +51,6 @@ static int	is_integer_range(char *str)
 	return (1);
 }
 
-
 static int	is_valid_input_argument(t_psw_list *a_list, char *argv)
 {
 	if (is_valid_digits(argv) == 0)
@@ -101,8 +80,6 @@ t_psw_list	*create_lst_from_str(char *str, int argc)
 				error(list_start);
 			seed_to_next_nbr(&str);
 		}
-		//if (*str == '\0')
-		//	error(list_start);
 		if (is_valid_input_argument(list_start, str) == 0)
 			error(list_start);
 		psw_lstadd_back(&list_start, psw_lstnew(ft_atoi(str)));
