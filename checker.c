@@ -1,17 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:32 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/15 17:34:24 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:43:58 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "bonus/push_swap_bonus.h"
 #include <stdio.h>
+#include <unistd.h>
+#include "get_next_line/get_next_line_bonus.h"
 
 /*
 void	print_stacks(t_psw_list *a_list, t_psw_list *b_list)
@@ -34,8 +37,9 @@ void	print_stacks(t_psw_list *a_list, t_psw_list *b_list)
 		b_list = b_list->next;
 	}
 }
+*/
 
-
+/*
 void	print_stack(t_psw_list *a_list)
 {
 	while (a_list != NULL)
@@ -69,13 +73,44 @@ void	handle_just_three(t_psw_list *a_list, t_psw_list *b_list)
 	}
 }
 
-void	input_already_sorted(t_psw_list *a_list)
+char	*seed_to_next_operation(char *str)
 {
-	if (is_sorted(a_list) == 1)
+	while (*str != '\n' && *str != '\0')
 	{
-		psw_lstclear(&a_list);
-		exit(0);
+		str++;
 	}
+	if (*str == '\n')
+		str++;
+	return (str);
+}
+
+void	run_operation(t_psw_list **a_list, t_psw_list **b_list,
+			char **operations_str)
+{
+	update_lists(*a_list, *b_list);
+	if (ft_strncmp("rra", *operations_str, 3) == 0)
+		rra_bonus(a_list, b_list);
+	else if (ft_strncmp("rrb", *operations_str, 3) == 0)
+		rrb_bonus(a_list, b_list);
+	else if (ft_strncmp("rrr", *operations_str, 3) == 0)
+		rrr_bonus(a_list, b_list);
+	else if (ft_strncmp("pa", *operations_str, 2) == 0)
+		pa_bonus(a_list, b_list);
+	else if (ft_strncmp("pb", *operations_str, 2) == 0)
+		pb_bonus(a_list, b_list);
+	else if (ft_strncmp("ra", *operations_str, 2) == 0)
+		ra_bonus(a_list, b_list);
+	else if (ft_strncmp("rb", *operations_str, 2) == 0)
+		rb_bonus(a_list, b_list);
+	else if (ft_strncmp("rr", *operations_str, 2) == 0)
+		rr_bonus(a_list, b_list);
+	else if (ft_strncmp("sa", *operations_str, 2) == 0)
+		sa_bonus(*a_list, *b_list);
+	else if (ft_strncmp("sb", *operations_str, 2) == 0)
+		sb_bonus(*a_list, *b_list);
+	else
+		error(*a_list, *b_list);
+	*operations_str = seed_to_next_operation(*operations_str);
 }
 
 int	main(int argc, char **argv)
@@ -83,26 +118,26 @@ int	main(int argc, char **argv)
 	t_psw_list	*a_list;
 	t_psw_list	*b_list;
 	t_psw_list	*node_a_to_push;
+	char		*operations_str;
+	char		*new_input;
 
 	initialize_input(&a_list, argc, argv);
-	input_already_sorted(a_list);
-	handle_just_three(a_list, b_list);
-	pb(&a_list, &b_list);
-	pb(&a_list, &b_list);
-	while (psw_lstsize(a_list) > 3)
+	//b_list = NULL;
+	operations_str = (char *) malloc(sizeof(char));
+	if (operations_str == NULL)
+		return (0);
+	new_input = get_next_line(0);
+	input_already_sorted(a_list, b_list, new_input);
+	operations_str = psw_strjoin_free(operations_str, new_input);
+	while (new_input != NULL)
 	{
-		update_lists(a_list, b_list);
-		node_a_to_push = cheapest_node(a_list, b_list);
-		rotate_all(&a_list, &b_list, node_a_to_push);
-		pb(&a_list, &b_list);
-		clear_stack_values(a_list);
-		clear_stack_values(b_list);
+		new_input = get_next_line(0);
+		if (new_input != NULL)
+			operations_str = psw_strjoin_free(operations_str, new_input);
 	}
-	update_lists(a_list, b_list);
-	if (is_sorted(a_list) == 0)
-		sort_three(&a_list);
-	swap_all_to_a(&a_list, &b_list);
-	rotate_to_min(&a_list, &b_list);
-	psw_lstclear(&a_list);
-	psw_lstclear(&b_list);
+	while (*operations_str != '\0')
+	{
+		run_operation(&a_list, &b_list, &operations_str);
+	}
+	check_result(a_list, b_list);
 }

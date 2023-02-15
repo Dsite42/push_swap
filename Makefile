@@ -6,7 +6,7 @@
 #    By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 15:39:27 by cgodecke          #+#    #+#              #
-#    Updated: 2023/02/14 10:47:57 by cgodecke         ###   ########.fr        #
+#    Updated: 2023/02/15 17:52:39 by cgodecke         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,17 +20,19 @@ INFILES = 	main.c\
 			list/*.c\
 			operations/*.c\
 
-BONUSFILES = 	ft_printf_bonus.c\
-				ft_print_flags_bonus.c\
-				ft_put_single.c\
-				ft_put_str.c\
-				ft_putnbr_base.c\
+BONUSFILES = 	checker.c\
+				helper/*.c\
+				list/*.c\
+				operations/*.c\
+				bonus/*.c\
+				get_next_line/*.c\
 
 BONUSOBJFILES = $(BONUSFILES:.c=.o)
 
 NAME = push_swap
+NAME_BONUS = checker
 
-$(NAME): $(OBJFILES)
+$(NAME):
 	cd libft && $(MAKE)
 #	cd helper && $(MAKE)
 #	cd list && $(MAKE)
@@ -53,12 +55,13 @@ clean:
 
 fclean: 	clean
 	rm -f $(NAME)
+	rm -f $(NAME_BONUS)
 	rm *.o
 	cd libft && $(MAKE) fclean
 	
-bonus: $(OBJBONUSFILES)
+bonus:
 	cd libft && $(MAKE)
-	$(AR)  $(AR_FLAGS) $(NAME) $(BONUSOBJFILES) $(LIBFTOBJFILES)
+	$(CC) $(CC_FLAGS) -o $(NAME_BONUS) $(BONUSFILES) libft/libft.a
 
 re: fclean all
 

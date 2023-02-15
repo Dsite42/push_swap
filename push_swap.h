@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:45:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/14 19:43:17 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:26:09 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		rrr_cost_optimization(t_psw_list *a_list, t_psw_list *b_list,
 				t_psw_list *a_list_start);
 void		rx_rrx_costs(t_psw_list *a_list, t_psw_list *b_list);
 void		update_lists(t_psw_list *a_list, t_psw_list *b_list);
-void		error(t_psw_list *a_list);
+void		error(t_psw_list *a_list, t_psw_list *b_list);
 int			is_duplicate(t_psw_list *a_list, int nbr_to_check);
 void		seed_to_next_nbr(char **str);
 int			is_sorted(t_psw_list *lst);

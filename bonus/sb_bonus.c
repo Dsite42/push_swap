@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   sb_bonus.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 11:35:11 by chris             #+#    #+#             */
-/*   Updated: 2023/02/15 16:26:23 by cgodecke         ###   ########.fr       */
+/*   Created: 2023/02/10 17:15:48 by cgodecke          #+#    #+#             */
+/*   Updated: 2023/02/15 17:42:40 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap_bonus.h"
 
-void	error(t_psw_list *a_list, t_psw_list *b_list)
+void	sb_bonus(t_psw_list *a_list, t_psw_list *b_list)
 {
-	if (a_list != NULL)
-		psw_lstclear(&a_list);
-	if (b_list != NULL)
-		psw_lstclear(&b_list);
-	write(1, "Error\n", 6);
-	exit(0);
+	int	tmp;
+
+	if (psw_lstsize(b_list) < 2)
+		error(a_list, b_list);
+	tmp = b_list->content;
+	b_list->content = b_list->next->content;
+	b_list->next->content = tmp;
 }

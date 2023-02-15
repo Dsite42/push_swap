@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:18:57 by chris             #+#    #+#             */
-/*   Updated: 2023/02/14 18:52:33 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:36:48 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_psw_list	*create_lst_from_args(char **argv, int argc)
 			i++;
 		}
 		if (is_valid_input_argument(list_start, argv[i]) == 0)
-			error(list_start);
+			error(list_start, NULL);
 		psw_lstadd_back(&list_start, psw_lstnew(ft_atoi(argv[i])));
 		i++;
 	}

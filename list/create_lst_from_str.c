@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:18:57 by chris             #+#    #+#             */
-/*   Updated: 2023/02/14 19:40:32 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:37:41 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,22 @@ t_psw_list	*create_lst_from_str(char *str, int argc)
 	i = 0;
 	list_start = NULL;
 	if ((*str < '0' || *str > '9') && *str != '-')
-		error(list_start);
+		error(list_start, NULL);
 	while (*str)
 	{
 		if (list_start == NULL)
 		{
 			list_start = psw_lstnew(ft_atoi(str));
 			if (is_valid_input_argument(list_start, str) == 0)
-				error(list_start);
+				error(list_start, NULL);
 			seed_to_next_nbr(&str);
 		}
 		if (is_valid_input_argument(list_start, str) == 0)
-			error(list_start);
+			error(list_start, NULL);
 		psw_lstadd_back(&list_start, psw_lstnew(ft_atoi(str)));
 		seed_to_next_nbr(&str);
 	}
 	if (*(str - 1) < '0' || *(str - 1) > '9')
-		error(list_start);
+		error(list_start, NULL);
 	return (list_start);
 }
