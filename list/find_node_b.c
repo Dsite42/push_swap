@@ -6,7 +6,7 @@
 /*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:08:42 by chris             #+#    #+#             */
-/*   Updated: 2023/02/12 22:09:00 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/20 15:37:34 by chris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_psw_list	*find_node_b(int content_a, t_psw_list *b_list)
 	t_psw_list	*max_node;
 	t_psw_list	*max_max_node;
 
-	max_content = 0;
-	max_max_content = 0;
+	max_content = INT_MIN;
+	max_max_content = INT_MIN;
 	while (b_list != NULL)
 	{
 		if (b_list->content > max_max_content)
@@ -35,7 +35,7 @@ t_psw_list	*find_node_b(int content_a, t_psw_list *b_list)
 		}
 		b_list = b_list->next;
 	}
-	if (max_content == 0)
+	if (max_content == INT_MIN)
 		return (max_max_node);
 	return (max_node);
 }
