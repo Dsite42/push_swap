@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:18:57 by chris             #+#    #+#             */
-/*   Updated: 2023/02/15 14:37:41 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:04:41 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static int	is_integer_range(char *str)
 	int	number_len;
 
 	number_len = str_number_len(str);
-	if ((number_len == 10 && ft_strncmp(str, "2147483647", number_len + 1) > 0)
-		|| number_len == 11
-		&& ft_strncmp(str, "-2147483648", number_len + 1) > 0)
+	if ((number_len == 10 && ft_strncmp(str, "2147483647", number_len) > 0)
+		|| (number_len == 11
+			&& ft_strncmp(str, "-2147483648", number_len) > 0))
 		return (0);
 	return (1);
 }
@@ -62,12 +62,10 @@ static int	is_valid_input_argument(t_psw_list *a_list, char *argv)
 	return (1);
 }
 
-t_psw_list	*create_lst_from_str(char *str, int argc)
+t_psw_list	*create_lst_from_str(char *str)
 {
 	t_psw_list	*list_start;
-	int			i;
 
-	i = 0;
 	list_start = NULL;
 	if ((*str < '0' || *str > '9') && *str != '-')
 		error(list_start, NULL);
@@ -79,6 +77,8 @@ t_psw_list	*create_lst_from_str(char *str, int argc)
 			if (is_valid_input_argument(list_start, str) == 0)
 				error(list_start, NULL);
 			seed_to_next_nbr(&str);
+			if (*str == '\0')
+				break ;
 		}
 		if (is_valid_input_argument(list_start, str) == 0)
 			error(list_start, NULL);

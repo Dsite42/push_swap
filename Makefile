@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chris <chris@student.42.fr>                +#+  +:+       +#+         #
+#    By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 15:39:27 by cgodecke          #+#    #+#              #
-#    Updated: 2023/02/20 14:54:06 by chris            ###   ########.fr        #
+#    Updated: 2023/02/21 14:23:26 by cgodecke         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-#CC_FLAGS = -Wall -Wextra -Werror
+CC_FLAGS = -Wall -Wextra -Werror
 AR = ar
 AR_FLAGS = -crs
 INFILES = 	main.c\
@@ -56,7 +56,6 @@ clean:
 fclean: 	clean
 	rm -f $(NAME)
 	rm -f $(NAME_BONUS)
-	rm *.o
 	cd libft && $(MAKE) fclean
 	
 bonus:

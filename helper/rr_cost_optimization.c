@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rr_cost_optimization.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:12:48 by chris             #+#    #+#             */
-/*   Updated: 2023/02/13 20:37:06 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/21 14:20:47 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	rr_cost_optimization(t_psw_list *a_list, t_psw_list *b_list)
+void	rr_cost_optimization(t_psw_list *a_list)
 {
 	t_psw_list	*new_costs;
 

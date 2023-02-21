@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:45:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/15 16:26:09 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/21 14:21:59 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include "libft/libft.h"
 # include <limits.h>
+
+
+
+						# include <stdio.h>
 
 typedef struct s_psw_list
 {
@@ -58,7 +62,7 @@ int			calc_single_index(t_psw_list *a_list, int to_find);
 void		clear_node_cost_values(t_psw_list *lst);
 void		copy_node_cost_values(t_psw_list *lst, t_psw_list *new_values);
 void		clear_stack_values(t_psw_list *lst);
-void		rr_cost_optimization(t_psw_list *a_list, t_psw_list *b_list);
+void		rr_cost_optimization(t_psw_list *a_list);
 void		rrr_cost_optimization(t_psw_list *a_list, t_psw_list *b_list,
 				t_psw_list *a_list_start);
 void		rx_rrx_costs(t_psw_list *a_list, t_psw_list *b_list);
@@ -73,7 +77,7 @@ t_psw_list	*create_lst(char **argv, int argc);
 t_psw_list	*psw_lstnew(int content);
 t_psw_list	*psw_lstlast(t_psw_list *lst);
 t_psw_list	*create_lst_from_args(char **argv, int argc);
-t_psw_list	*create_lst_from_str(char *str, int argc);
+t_psw_list	*create_lst_from_str(char *str);
 int			psw_lstsize(t_psw_list *lst);
 t_psw_list	*cheapest_node(t_psw_list *a_list, t_psw_list *b_list);
 t_psw_list	*find_node_a(int content_b, t_psw_list *a_list);

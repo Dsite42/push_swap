@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:32 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/15 17:34:24 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/21 14:20:20 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	initialize_input(t_psw_list **a_list, int argc, char **argv)
 	if (argc < 2)
 		exit(0);
 	if (argc == 2)
-		*a_list = create_lst_from_str(*(argv + 1), argc);
+		*a_list = create_lst_from_str(*(argv + 1));
 	else
 		*a_list = create_lst_from_args(argv + 1, argc);
 }
@@ -84,6 +84,7 @@ int	main(int argc, char **argv)
 	t_psw_list	*b_list;
 	t_psw_list	*node_a_to_push;
 
+	b_list = NULL;
 	initialize_input(&a_list, argc, argv);
 	input_already_sorted(a_list);
 	handle_just_three(a_list, b_list);

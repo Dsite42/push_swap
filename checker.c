@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:32 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/20 17:59:00 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/21 16:02:05 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	initialize_input(t_psw_list **a_list, int argc, char **argv)
 	if (argc < 2)
 		exit(0);
 	if (argc == 2)
-		*a_list = create_lst_from_str(*(argv + 1), argc);
+		*a_list = create_lst_from_str(*(argv + 1));
 	else
 		*a_list = create_lst_from_args(argv + 1, argc);
 }
@@ -73,23 +73,31 @@ void	handle_just_three(t_psw_list *a_list, t_psw_list *b_list)
 	}
 }
 
-
+void	no_operations_input(t_psw_list *a_list)
+{
+	if (is_sorted(a_list))
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+	psw_lstclear(&a_list);
+	exit(0);
+}
 
 int	main(int argc, char **argv)
 {
 	t_psw_list	*a_list;
 	t_psw_list	*b_list;
-	t_psw_list	*node_a_to_push;
 	char		*operations_str;
 	char		*new_input;
 
 	initialize_input(&a_list, argc, argv);
-	//b_list = NULL;
+	b_list = NULL;
 	operations_str = (char *) malloc(sizeof(char));
 	if (operations_str == NULL)
 		return (0);
 	new_input = get_next_line(0);
-	input_already_sorted(a_list, b_list, new_input);
+	if (new_input == NULL)
+		no_operations_input(a_list);
 	operations_str = psw_strjoin_free(operations_str, new_input);
 	while (new_input != NULL)
 	{
@@ -98,8 +106,6 @@ int	main(int argc, char **argv)
 			operations_str = psw_strjoin_free(operations_str, new_input);
 	}
 	while (*operations_str != '\0')
-	{
 		run_operation_bonus(&a_list, &b_list, &operations_str);
-	}
 	check_result(a_list, b_list);
 }
