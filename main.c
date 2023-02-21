@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:32 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/21 14:20:20 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:24:02 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ void	print_stack(t_psw_list *a_list)
 
 }
 */
+
+void	clear_stacks(t_psw_list **a_list, t_psw_list **b_list)
+{
+	psw_lstclear(a_list);
+	psw_lstclear(b_list);
+}
 
 void	initialize_input(t_psw_list **a_list, int argc, char **argv)
 {
@@ -104,6 +110,5 @@ int	main(int argc, char **argv)
 		sort_three(&a_list);
 	swap_all_to_a(&a_list, &b_list);
 	rotate_to_min(&a_list, &b_list);
-	psw_lstclear(&a_list);
-	psw_lstclear(&b_list);
+	clear_stacks(&a_list, &b_list);
 }
