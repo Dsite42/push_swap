@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:58:36 by chris             #+#    #+#             */
-/*   Updated: 2023/02/21 17:40:51 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:10:27 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ t_psw_list	*psw_lstnew(int content)
 		return (NULL);
 	tmp->content = content;
 	tmp->next = NULL;
-		tmp->costs = 0;
-		tmp->ra = 0;
-		tmp->rra = 0;
-		tmp->rb = 0;
-		tmp->rrb = 0;
-		tmp->rr = 0;
-		tmp->rrr = 0;
-
+	tmp->costs = 0;
+	tmp->ra = 0;
+	tmp->rra = 0;
+	tmp->rb = 0;
+	tmp->rrb = 0;
+	tmp->rr = 0;
+	tmp->rrr = 0;
 	return (tmp);
 }

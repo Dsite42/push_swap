@@ -6,13 +6,13 @@
 #    By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 15:39:27 by cgodecke          #+#    #+#              #
-#    Updated: 2023/02/21 17:41:15 by cgodecke         ###   ########.fr        #
+#    Updated: 2023/02/22 10:02:05 by cgodecke         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-CC_FLAGS = -g -Wall -Wextra -Werror
+CC_FLAGS = -g #-Wall -Wextra -Werror
 AR = ar
 AR_FLAGS = -crs
 INFILES = 	main.c\

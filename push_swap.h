@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:45:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/21 16:10:18 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:09:00 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libft/libft.h"
 # include <limits.h>
-						# include <stdio.h>
 
 typedef struct s_psw_list
 {
@@ -81,6 +80,4 @@ t_psw_list	*find_node_a(int content_b, t_psw_list *a_list);
 t_psw_list	*find_node_b(int content_a, t_psw_list *b_list);
 void		psw_lstclear(t_psw_list **lst);
 void		psw_lstdelone(t_psw_list *lst);
-
-//void		print_stacks(t_psw_list *a_list, t_psw_list *b_list);
 #endif
