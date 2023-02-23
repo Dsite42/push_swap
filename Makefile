@@ -6,7 +6,7 @@
 #    By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 15:39:27 by cgodecke          #+#    #+#              #
-#    Updated: 2023/02/23 13:14:17 by cgodecke         ###   ########.fr        #
+#    Updated: 2023/02/23 13:28:08 by cgodecke         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,7 +111,7 @@ BONUSFILES = 	helper/calc_single_index.c\
 					bonus/ss_bonus.c\
 				get_next_line/get_next_line_bonus.c\
 				get_next_line/get_next_line_utils_bonus.c\
-					checker.c\
+					checker_bonus.c\
 
 BONUSOBJFILES = $(BONUSFILES:%.c=$(OBJDIR)/%.o)
 
