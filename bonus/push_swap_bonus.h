@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chris <chris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:45:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/02/20 18:03:49 by chris            ###   ########.fr       */
+/*   Updated: 2023/02/23 13:20:09 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,4 @@ char		*psw_strjoin_free(char const *s1, char const *s2);
 void		input_already_sorted(t_psw_list *a_list, t_psw_list *b_list,
 				char *new_input);
 void		check_result(t_psw_list *a_list, t_psw_list *b_list);
-
-//List functions:
-
-//void		print_stacks(t_psw_list *a_list, t_psw_list *b_list);
 #endif
