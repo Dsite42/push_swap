@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 22:18:57 by chris             #+#    #+#             */
-/*   Updated: 2023/02/21 15:04:41 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:30:55 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static int	is_integer_range(char *str)
 	number_len = str_number_len(str);
 	if ((number_len == 10 && ft_strncmp(str, "2147483647", number_len) > 0)
 		|| (number_len == 11
-			&& ft_strncmp(str, "-2147483648", number_len) > 0))
+			&& ft_strncmp(str, "-2147483648", number_len) > 0)
+		|| (number_len > 11))
 		return (0);
 	return (1);
 }
